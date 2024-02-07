@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import tmdb_client
 import random
 
@@ -25,6 +25,7 @@ def movie_details(movie_id):
     movie_images = tmdb_client.get_movie_images(movie_id)
     selected_backdrop = random.choice(movie_images['backdrops'])
     return render_template("movie_details.html", movie=details, cast=cast, selected_backdrop=selected_backdrop)
+
 
 
 
