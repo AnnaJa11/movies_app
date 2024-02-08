@@ -14,8 +14,15 @@ def utility_processor():
 
 @app.route('/')
 def homepage():
-    movies = tmdb_client.get_movies(how_many=8)
-    return render_template("homepage.html", movies=movies)
+    default_list_type = 'popular'
+    list_types = {
+        'top_rated': 'Top rated',
+        'upcoming': 'Upcoming',
+        'popular': 'Popular',
+        'now_playing': 'Now Playing'
+    }
+    movies = tmdb_client.get_movies(how_many=8, list_type=default_list_type)
+    return render_template("homepage.html", movies=movies, list_types=list_types)
 
 
 @app.route("/movie/<movie_id>")
@@ -25,9 +32,6 @@ def movie_details(movie_id):
     movie_images = tmdb_client.get_movie_images(movie_id)
     selected_backdrop = random.choice(movie_images['backdrops'])
     return render_template("movie_details.html", movie=details, cast=cast, selected_backdrop=selected_backdrop)
-
-
-
 
 
 
